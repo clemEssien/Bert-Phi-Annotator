@@ -7,8 +7,8 @@ services:
       context: server
       dockerfile: Dockerfile
     container_name: phi-annotator
-    networks:
-      - nlpsandbox-internal
+    # networks:
+    #   - nlpsandbox-internal
 
   nginx:
     image: nginx:1.19.6-alpine
@@ -20,9 +20,9 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/templates:/etc/nginx/templates:ro
-    networks:
-      - nlpsandbox
-      - nlpsandbox-internal
+  #   networks:
+  #     - nlpsandbox
+  #     - nlpsandbox-internal
     ports:
       - "80:80"
     depends_on:
@@ -30,5 +30,5 @@ services:
 
 networks:
   nlpsandbox:
-  nlpsandbox-internal:
-    internal: true
+  # nlpsandbox-internal:
+  #   internal: true

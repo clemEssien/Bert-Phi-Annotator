@@ -43,19 +43,3 @@ def create_text_location_annotations():  # noqa: E501
             status = 500
             res = Error("Internal error", status, str(error))
     return res, status
-
-
-def add_annotations(annotations, matches, location_type):
-    """
-    Converts matches to TextLocationAnnotation objects and adds them
-    to the annotations array specified.
-    """
-    for match in matches:
-        annotations.append(
-            TextLocationAnnotation(
-                start=match.start(),
-                length=len(match[0]),
-                text=match[0],
-                location_type=location_type,
-                confidence=95.5
-            ))
