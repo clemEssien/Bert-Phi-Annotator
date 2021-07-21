@@ -22,8 +22,7 @@ def create_text_person_name_annotations():  # noqa: E501
             annotation_request = TextPersonNameAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note  # noqa: E501
             annotations = []
-            print(note)
-            result = cf.get_entities("dslim/bert-base-NER","dslim/bert-base-NER",note.text)
+            result = cf.get_entities("./dslim-bert/tokenizer","./dslim-bert/model",note.text)
         
             for output in result:
                 if 'PER' in output['entity']:

@@ -21,6 +21,7 @@ RUN apt-get update -qq -y \
 WORKDIR ${APP_DIR}
 COPY openapi_server openapi_server/
 COPY data data/
+COPY dslim-bert dslim-bert/
 COPY requirements.txt prod-requirements.txt uwsgi.ini ./
 
 
@@ -41,4 +42,5 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["python", "-m", "openapi_server"]
 
 # Run server in production mode
+RUN echo 'uwsgi_read_timeout 300s > /etc/nginx/conf.d/custom_timeout.conf'
 CMD ["uwsgi", "--ini", "uwsgi.ini", "--lazy", "--http", ":8080"]

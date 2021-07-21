@@ -25,9 +25,10 @@ def create_text_location_annotations():  # noqa: E501
             annotation_request = TextLocationAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
             annotations = []
+          
+            result = cf.get_entities("./dslim-bert/tokenizer","./dslim-bert/model",note.text)
+            print(result)
 
-            result = cf.get_entities("dslim/bert-base-NER","dslim/bert-base-NER",note.text)
-            
             for output in result:
                 if 'LOC' in output['entity']:
                     annotations.append(TextLocationAnnotation(
@@ -41,5 +42,6 @@ def create_text_location_annotations():  # noqa: E501
             status = 200
         except Exception as error:
             status = 500
+            print(error)
             res = Error("Internal error", status, str(error))
     return res, status
