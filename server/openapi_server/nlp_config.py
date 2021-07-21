@@ -10,8 +10,3 @@ def get_entities(embedding, model_name, sample_text):
     ner_results = nlp(sample_text)
 
     return ner_results
-
-# import os
-
-# files = os.listdir("../ms-bert")
-# print(files)

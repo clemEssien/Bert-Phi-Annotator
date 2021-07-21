@@ -42,5 +42,4 @@ ENTRYPOINT ["/docker-entrypoint.sh"]
 # CMD ["python", "-m", "openapi_server"]
 
 # Run server in production mode
-RUN echo 'uwsgi_read_timeout 300s > /etc/nginx/conf.d/custom_timeout.conf'
 CMD ["uwsgi", "--ini", "uwsgi.ini", "--lazy", "--http", ":8080"]
