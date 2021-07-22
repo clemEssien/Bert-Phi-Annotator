@@ -21,7 +21,6 @@ def create_text_person_name_annotations():  # noqa: E501
             note = annotation_request._note  # noqa: E501
             annotations = []
             result = cf.get_entities("./dslim-bert/tokenizer", "./dslim-bert/model", note.text)
-        
             for output in result:
                 if 'PER' in output['entity']:
                     annotations.append(TextPersonNameAnnotation(
@@ -29,8 +28,7 @@ def create_text_person_name_annotations():  # noqa: E501
                             length=len(output['word']),
                             text=output['word'],
                             confidence=round(float(output['score']*100), 2)
-                        ))
-                   
+                        ))   
             res = TextPersonNameAnnotationResponse(annotations)
             status = 200
         except Exception as error:
