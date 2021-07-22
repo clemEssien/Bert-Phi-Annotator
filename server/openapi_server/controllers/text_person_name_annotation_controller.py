@@ -28,7 +28,7 @@ def create_text_person_name_annotations():  # noqa: E501
                             length=len(output['word']),
                             text=output['word'],
                             confidence=round(float(output['score']*100), 2)
-                        ))   
+                        ))  
             res = TextPersonNameAnnotationResponse(annotations)
             status = 200
         except Exception as error:
