@@ -3,7 +3,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification, pipelin
 
 def get_entities(embedding, model_name, sample_text):
 
-    tokenizer = AutoTokenizer.from_pretrained(embedding)   
+    tokenizer = AutoTokenizer.from_pretrained(embedding)
     model = AutoModelForTokenClassification.from_pretrained(model_name)
     nlp = pipeline("ner", model=model, tokenizer=tokenizer)
 

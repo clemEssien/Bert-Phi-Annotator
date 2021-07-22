@@ -1,12 +1,10 @@
 import connexion
-import pandas as pd
-import re
-
 from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_location_annotation import TextLocationAnnotation  # noqa: E501
 from openapi_server.models.text_location_annotation_request import TextLocationAnnotationRequest  # noqa: E501
 from openapi_server.models.text_location_annotation_response import TextLocationAnnotationResponse  # noqa: E501
 from openapi_server import nlp_config as cf
+
 
 def create_text_location_annotations():  # noqa: E501
     """Annotate locations in a clinical note
@@ -26,16 +24,15 @@ def create_text_location_annotations():  # noqa: E501
             note = annotation_request._note
             annotations = []
           
-            result = cf.get_entities("./dslim-bert/tokenizer","./dslim-bert/model",note.text)
+            result = cf.get_entities("./dslim-bert/tokenizer", "./dslim-bert/model", note.text)
             print(result)
-
             for output in result:
                 if 'LOC' in output['entity']:
                     annotations.append(TextLocationAnnotation(
                             start=int(output['start']),
                             length=len(output['word']),
                             text=output['word'],
-                            confidence=round(float(output['score']*100),2)
+                            confidence=round(float(output['score']*100), 2)
                         ))
             
             res = TextLocationAnnotationResponse(annotations)
