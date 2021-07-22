@@ -51,6 +51,7 @@ performance -- just don't expect a high performance!
   - [Testing](#Testing)
   - [Preventing an NLP Sandbox tool from connecting to remote
     servers](#Preventing-an-NLP-Sandbox-tool-from-connecting-to-remote-servers)
+- [Annotation](#Annotation)
 - [Versioning](#Versioning)
   - [GitHub release tags](#GitHub-release-tags)
   - [Docker image tags](#Docker-image-tags)
@@ -284,6 +285,14 @@ tool container. One benefit is that you can test your tool locally and ensure
 that it works fine while it does not have access to the internet. Note that when
 being evaluated on [NLPSandbox.io], additional measures are put in place to
 prevent tools from connecting to remote servers.
+
+### Annotation
+Below is a table of the different models in this project and the entities they identify
+
+| Model name                  | Enitity    | 
+|-----------------------------|------------|
+| dslim-bert                  | Name       |
+| dslim-bert                  | Location   | 
 
 
 ## Versioning
