@@ -286,7 +286,8 @@ that it works fine while it does not have access to the internet. Note that when
 being evaluated on [NLPSandbox.io], additional measures are put in place to
 prevent tools from connecting to remote servers.
 
-### Annotation
+## Annotation
+
 Below is a table of the different models in this project and the entities they identify
 
 | Model name                  | Enitity    | 
