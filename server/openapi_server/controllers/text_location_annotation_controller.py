@@ -23,7 +23,7 @@ def create_text_location_annotations():  # noqa: E501
             annotation_request = TextLocationAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
             annotations = []
-            result = cf.get_entities("./dslim-bert/tokenizer", "./dslim-bert/model", note.text)
+            result = cf.get_entities("../dslim-bert/tokenizer", "../dslim-bert/model", note.text)
             for output in result:
                 if 'LOC' in output['entity']:
                     annotations.append(TextLocationAnnotation(
