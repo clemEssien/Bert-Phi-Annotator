@@ -12,8 +12,6 @@ RUN apt-get update -qq -y \
         gosu \
         libpcre3 \
         libpcre3-dev \
-        procps \
-        unar \
     && apt-get -y autoclean \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
@@ -35,6 +33,8 @@ COPY docker-entrypoint.sh .
 RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 8080
+
+RUN echo 'uwsgi_read_timeout 300s > /etc/nginx/conf.d/custom_timeout.conf'
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
