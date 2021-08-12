@@ -23,8 +23,8 @@ def create_text_location_annotations():  # noqa: E501
             annotation_request = TextLocationAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
             annotations = []
-            location_annotations = bert.get_entities(note.text, 'LOC') 
-            add_location_annotation(annotations,location_annotations)
+            location_annotations = bert.get_entities(note.text, 'LOC')
+            add_location_annotation(annotations, location_annotations)
             res = TextLocationAnnotationResponse(annotations)
             status = 200
         except Exception as error:
@@ -32,6 +32,7 @@ def create_text_location_annotations():  # noqa: E501
             print(error)
             res = Error("Internal error", status, str(error))
     return res, status
+
 
 def add_location_annotation(annotations, location_annotations):
     for match in location_annotations:
@@ -42,4 +43,4 @@ def add_location_annotation(annotations, location_annotations):
                            text=match['word'],
                            location_type='other',
                            confidence=round(float(match['score']*100), 2)
-        ))
+            ))

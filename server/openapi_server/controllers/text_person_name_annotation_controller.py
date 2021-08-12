@@ -1,7 +1,7 @@
 import connexion
 from openapi_server.models.error import Error  # noqa: E501
+from openapi_server.models.text_person_name_annotation import TextPersonNameAnnotation
 from openapi_server.models.text_person_name_annotation_request import TextPersonNameAnnotationRequest  # noqa: E501
-from openapi_server.models.text_person_name_annotation import TextPersonNameAnnotation  # noqa: E501
 from openapi_server.models.text_person_name_annotation_response import TextPersonNameAnnotationResponse  # noqa: E501
 from openapi_server.nlp_config import bert
 
@@ -34,9 +34,9 @@ def create_text_person_name_annotations():  # noqa: E501
 def add_name_annotation(annotations, name_annotations):
     for match in name_annotations:
         annotations.append(
-            TextPersonNameAnnotationResponse(
+            TextPersonNameAnnotation(
                            start=int(match['start']),
                            length=len(match['word']),
                            text=match['word'],
                            confidence=round(float(match['score']*100), 2)
-        ))
+            ))
