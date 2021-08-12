@@ -22,14 +22,6 @@ def create_text_person_name_annotations():  # noqa: E501
             annotations = []
             name_annotations = bert.get_entities(note.text, "PER")
             add_name_annotation(annotations, name_annotations)
-            # for output in result:
-            #     if 'PER' in output['entity']:
-            #         annotations.append(TextPersonNameAnnotation(
-            #                 start=int(output['start']),
-            #                 length=len(output['word']),
-            #                 text=output['word'],
-            #                 confidence=round(float(output['score']*100), 2)
-            #             ))
             res = TextPersonNameAnnotationResponse(annotations)
             status = 200
         except Exception as error:

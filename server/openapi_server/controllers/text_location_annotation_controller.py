@@ -23,18 +23,8 @@ def create_text_location_annotations():  # noqa: E501
             annotation_request = TextLocationAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
             annotations = []
-            location_annotations = bert.get_entities(note.text, 'LOC')
-            
+            location_annotations = bert.get_entities(note.text, 'LOC') 
             add_location_annotation(annotations,location_annotations)
-            print(annotations)
-            # for output in result:
-            #     if 'LOC' in output['entity']:
-            #         annotations.append(TextLocationAnnotation(
-            #                 start=int(output['start']),
-            #                 length=len(output['word']),
-            #                 text=output['word'],
-            #                 confidence=round(float(output['score']*100), 2)
-            #             ))
             res = TextLocationAnnotationResponse(annotations)
             status = 200
         except Exception as error:
