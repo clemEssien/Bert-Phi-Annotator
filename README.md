@@ -16,19 +16,20 @@ processing (NLP) tools on both public and private datasets. Academics, students,
 and industry professionals are invited to browse the available tasks and
 participate by developing and submitting an NLP Sandbox tool.
 
-This repository provides an example implementation of the [NLP Sandbox Date
-Annotator API] written in Python-Flask. An NLP Sandbox PHI annotator takes as
-input a clinical note (text) and outputs a list of predicted PHI annotations
-found in the clinical note. Here PHIs are identified using regular expressions.
+This repository packages [dslim-bert](https://huggingface.co/dslim/bert-base-NER) as an [NLP Sandbox PHI annotator](https://www.synapse.org/#!Synapse:syn22277123/wiki/609134). The
+performance of this tool can be viewed and compared to the performance of other
+PHI annotators on [NLPSandbox.io].
 
-This tool is provided to NLP developers who develop in Python as a starting
-point to package their own PHI annotator as an NLP Sandbox tool (see section
-[Development](#Development)). This section also describes how to generate a tool
-"stub" using [openapi-generator] for 50+ programming languages-frameworks. This
-repository includes a GitHub CI/CD workflow that lints, tests, builds and pushes
-a Docker image of this tool to Synapse Docker Registry. This image of this
-example tool can be submitted as-is on [NLPSandbox.io] to benchmark its
-performance -- just don't expect a high performance!
+
+Annotations supported by dslim-bert:
+
+Annotation  | Schema                     | Supported
+------------|----------------------------|----------
+Contact     | [TextContactAnnotation](https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextContactAnnotation.yaml)    | No
+Date        | [TextDateAnnotation](https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextDateAnnotation.yaml)       | No
+ID          | [TextIdAnnotation](https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextIdAnnotation.yaml)         | No
+Location    | [TextLocationAnnotation](https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextLocationAnnotation.yaml)   | Yes
+Person Name | [TextPersonNameAnnotation](https://github.com/nlpsandbox/nlpsandbox-schemas/blob/main/openapi/commons/components/schemas/TextPersonNameAnnotation.yaml) | Yes
 
 
 ## Contents
@@ -55,6 +56,7 @@ performance -- just don't expect a high performance!
   - [GitHub release tags](#GitHub-release-tags)
   - [Docker image tags](#Docker-image-tags)
 - [Benchmarking on NLPSandbox&#46;io](#Benchmarking-on-NLPSandbox&#46;io)
+- [Citation](#Citation)
 - [Contributing](#Contributing)
 - [License](#License)
 
@@ -89,6 +91,22 @@ Create a Conda environment.
 ```console
 conda create --name phi-annotator python=3.9 -y
 conda activate phi-annotator
+```
+
+Download the dslim-bert model (too large to be tracked on GitHub).
+```
+curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/config.json \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/pytorch_model.bin \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/special_tokens_map.json \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/tokenizer_config.json \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/vocab.txt 
+
+    && mv config.json dslim-bert/model \
+    && mv pytorch_model.bin dslim-bert/model \
+    && mv special_tokens_map.json dslim-bert/tokenizer \
+    && mv tokenizer_config.json dslim-bert/tokenizer \
+    && mv vocab.txt dslim-bert/tokenizer 
+
 ```
 
 Install and start this NLP Sandbox PHI annotator.
@@ -285,7 +303,6 @@ that it works fine while it does not have access to the internet. Note that when
 being evaluated on [NLPSandbox.io], additional measures are put in place to
 prevent tools from connecting to remote servers.
 
-
 ## Versioning
 
 ### GitHub release tags
@@ -316,6 +333,13 @@ running and hard to roll back.
 
 Visit [nlpsandbox.io] for instructions on how to submit your NLP Sandbox tool
 and evaluate its performance.
+
+## Citation
+
+- If you use dslim-bert in your publications, please follow the [citation
+  guidelines given by the authors of dslim-bert](https://huggingface.co/dslim/bert-base-NER#bibtex-entry-and-citation-info).
+- If you use this NLP Sandbox tool or resources from [NLPSandbox.io](https://www.synapse.org/nlpsandbox), please
+  follow these [citation guidelines](https://www.synapse.org/#!Synapse:syn22277123/wiki/609146).
 
 ## Contributing
 

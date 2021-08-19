@@ -4,11 +4,6 @@ from __future__ import absolute_import
 import unittest
 
 from flask import json
-from six import BytesIO
-
-from openapi_server.models.error import Error  # noqa: E501
-from openapi_server.models.text_contact_annotation_request import TextContactAnnotationRequest  # noqa: E501
-from openapi_server.models.text_contact_annotation_response import TextContactAnnotationResponse  # noqa: E501
 from openapi_server.test import BaseTestCase
 
 
@@ -21,14 +16,16 @@ class TestTextContactAnnotationController(BaseTestCase):
         Annotate contact information in a clinical note
         """
         text_contact_annotation_request = {
-  "note" : {
-    "identifier" : "awesome-note",
-    "text" : "On 12/26/2020, Ms. Chloe Price met with Dr. Prescott in Seattle. Her phone number is 203-555-4545.\n",
-    "type" : "loinc:LP29684-5",
-    "patientId" : "awesome-patient"
-  }
-}
-        headers = { 
+                "note": {
+                    "identifier": "awesome-note",
+                    "text": "On 12/26/2020, Ms. Chloe Price met" +
+                            "with Dr. Prescott in Seattle." +
+                            "Her phone number is 203-555-4545.\n",
+                    "type": "loinc:LP29684-5",
+                    "patientId": "awesome-patient"
+                }
+        }
+        headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
         }
