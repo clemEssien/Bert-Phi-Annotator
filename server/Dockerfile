@@ -12,8 +12,6 @@ RUN apt-get update -qq -y \
         gosu \
         libpcre3 \
         libpcre3-dev \
-        nano \
-        less \
         curl \
     && apt-get -y autoclean \
     && apt-get -y autoremove \
@@ -21,14 +19,8 @@ RUN apt-get update -qq -y \
 
 WORKDIR ${APP_DIR}
 COPY openapi_server openapi_server/
-# COPY dslim-bert dslim-bert/
 RUN mkdir dslim-bert
 COPY requirements.txt prod-requirements.txt uwsgi.ini ./
-
-# Download dslim model
-# RUN curl -O http://neuroner.com/data/word_vectors/glove.6B.100d.zip \
-#     && rm -fr data/word_vectors/* \
-#     && unzip glove.6B.100d.zip -d data/word_vectors
 
 RUN mkdir dslim-bert/model \
     && mkdir dslim-bert/tokenizer \
