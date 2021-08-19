@@ -22,6 +22,7 @@ COPY openapi_server openapi_server/
 RUN mkdir dslim-bert
 COPY requirements.txt prod-requirements.txt uwsgi.ini ./
 
+#download dslim-bert model
 RUN mkdir dslim-bert/model \
     && mkdir dslim-bert/tokenizer \
     && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/config.json \
