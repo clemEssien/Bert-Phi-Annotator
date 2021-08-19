@@ -21,11 +21,6 @@ def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
             annotation_request = TextIdAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
             annotations = []
-            matches = re.finditer(r"[\d]{3}-[\d]{2}-[\d]{4}", note._text)
-            add_id_annotation(annotations, matches, "ssn")
-
-            matches = re.finditer(r"[\d]{5,}", note._text)
-            add_id_annotation(annotations, matches, "id_number")
             res = TextIdAnnotationResponse(annotations)
             status = 200
         except Exception as error:

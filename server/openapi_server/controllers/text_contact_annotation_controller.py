@@ -1,5 +1,4 @@
 import connexion
-import re
 from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_contact_annotation_request import TextContactAnnotationRequest  # noqa: E501
 from openapi_server.models.text_contact_annotation import TextContactAnnotation
@@ -19,17 +18,6 @@ def create_text_contact_annotations(text_contact_annotation_request=None):  # no
             note = annotation_request._note
             print(note)
             annotations = []
-            matches = re.finditer(r"\([\d]{3}\)\s[\d]{3}-[\d]{4}", note._text)
-            add_contact_annotation(annotations, matches, "phone")
-
-            matches = re.finditer(r"[\d]{3}-[\d]{3}-[\d]{4}", note._text)
-            add_contact_annotation(annotations, matches, "phone")
-
-            matches = re.finditer(r"[\S]+@[\S]+", note._text)
-            add_contact_annotation(annotations, matches, "email")
-
-            matches = re.finditer(r"https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}", note._text)  # noqa: E501
-            add_contact_annotation(annotations, matches, "url")
             res = TextContactAnnotationResponse(annotations)
             status = 200
         except Exception as error:

@@ -38,5 +38,5 @@ def add_name_annotation(annotations, name_annotations):
                            start=int(match['start']),
                            length=len(match['word']),
                            text=match['word'],
-                           confidence=round(float(match['score']*100), 2)
+                           confidence=float(match['score']*100)
             ))

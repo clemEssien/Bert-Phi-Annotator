@@ -42,5 +42,5 @@ def add_location_annotation(annotations, location_annotations):
                            length=len(match['word']),
                            text=match['word'],
                            location_type='other',
-                           confidence=round(float(match['score']*100), 2)
+                           confidence=float(match['score']*100)
             ))

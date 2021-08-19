@@ -23,29 +23,7 @@ def create_text_date_annotations():  # noqa: E501
             annotation_request = TextDateAnnotationRequest.from_dict(
                 connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
-
             annotations = []
-            # Adapted from https://stackoverflow.com/a/61234139
-            matches = re.finditer(
-                "([1-9]|0[1-9]|1[0-2])(/)([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])" +
-                "(/)(19[0-9][0-9]|20[0-9][0-9])", note._text)
-            add_date_annotation(annotations, matches, "MM/DD/YYYY")
-
-            matches = re.finditer(
-                "([1-9]|0[1-9]|1[0-9]|2[0-9]|3[0-1])(\\.)([1-9]|0[1-9]|" +
-                "1[0-2])(\\.)(19[0-9][0-9]|20[0-9][0-9])", note._text)
-            add_date_annotation(annotations, matches, "DD.MM.YYYY")
-
-            matches = re.finditer(
-                "([1-9][1-9][0-9][0-9]|2[0-9][0-9][0-9])", note._text)
-            add_date_annotation(annotations, matches, "YYYY")
-
-            matches = re.finditer(
-                "(January|February|March|April|May|June|July|August|" +
-                "September|October|November|December)",
-                note._text, re.IGNORECASE)
-            add_date_annotation(annotations, matches, "MMMM")
-
             res = TextDateAnnotationResponse(annotations)
             status = 200
         except Exception as error:

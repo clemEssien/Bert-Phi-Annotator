@@ -12,16 +12,36 @@ RUN apt-get update -qq -y \
         gosu \
         libpcre3 \
         libpcre3-dev \
+        nano \
+        less \
+        curl \
     && apt-get -y autoclean \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR ${APP_DIR}
 COPY openapi_server openapi_server/
-COPY data data/
-COPY dslim-bert dslim-bert/
+# COPY dslim-bert dslim-bert/
+RUN mkdir dslim-bert
 COPY requirements.txt prod-requirements.txt uwsgi.ini ./
 
+# Download dslim model
+# RUN curl -O http://neuroner.com/data/word_vectors/glove.6B.100d.zip \
+#     && rm -fr data/word_vectors/* \
+#     && unzip glove.6B.100d.zip -d data/word_vectors
+
+RUN mkdir dslim-bert/model \
+    && mkdir dslim-bert/tokenizer \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/config.json \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/pytorch_model.bin \
+    && mv config.json dslim-bert/model \
+    && mv pytorch_model.bin dslim-bert/model \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/special_tokens_map.json \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/tokenizer_config.json \
+    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/vocab.txt \
+    && mv special_tokens_map.json dslim-bert/tokenizer \
+    && mv tokenizer_config.json dslim-bert/tokenizer \
+    && mv vocab.txt dslim-bert/tokenizer 
 
 RUN pip install --no-cache-dir \
     -r requirements.txt -r prod-requirements.txt \
