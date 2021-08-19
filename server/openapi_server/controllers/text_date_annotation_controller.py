@@ -1,6 +1,4 @@
 import connexion
-import re
-
 from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_date_annotation_request import \
     TextDateAnnotationRequest  # noqa: E501
@@ -23,6 +21,7 @@ def create_text_date_annotations():  # noqa: E501
             annotation_request = TextDateAnnotationRequest.from_dict(
                 connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
+            note = note.text
             annotations = []
             res = TextDateAnnotationResponse(annotations)
             status = 200

@@ -1,5 +1,4 @@
 import connexion
-import re
 from openapi_server.models.error import Error  # noqa: E501
 from openapi_server.models.text_id_annotation_request import TextIdAnnotationRequest  # noqa: E501
 from openapi_server.models.text_id_annotation import TextIdAnnotation
@@ -20,6 +19,7 @@ def create_text_id_annotations(text_id_annotation_request=None):  # noqa: E501
         try:
             annotation_request = TextIdAnnotationRequest.from_dict(connexion.request.get_json())  # noqa: E501
             note = annotation_request._note
+            note = note.text
             annotations = []
             res = TextIdAnnotationResponse(annotations)
             status = 200
