@@ -9,8 +9,8 @@ class Bert:
         self.nlp = None
 
     def initialize(self):
-        self.tokenizer = at.from_pretrained("./dslim-bert/tokenizer")
-        self.model = amc.from_pretrained("./dslim-bert/model")
+        self.tokenizer = at.from_pretrained("../dslim-bert/tokenizer")
+        self.model = amc.from_pretrained("../dslim-bert/model")
         self.nlp = pipeline("ner", model=self.model, tokenizer=self.tokenizer)
 
     def get_entities(self, sample_text, label):
