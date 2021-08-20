@@ -25,16 +25,8 @@ COPY requirements.txt prod-requirements.txt uwsgi.ini ./
 #download dslim-bert model
 RUN mkdir dslim-bert/model \
     && mkdir dslim-bert/tokenizer \
-    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/config.json \
     && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/pytorch_model.bin \
-    && mv config.json dslim-bert/model \
     && mv pytorch_model.bin dslim-bert/model \
-    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/special_tokens_map.json \
-    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/tokenizer_config.json \
-    && curl -O https://huggingface.co/dslim/bert-base-NER/blob/main/vocab.txt \
-    && mv special_tokens_map.json dslim-bert/tokenizer \
-    && mv tokenizer_config.json dslim-bert/tokenizer \
-    && mv vocab.txt dslim-bert/tokenizer \
 #install requirements    
     && pip install --no-cache-dir \
     -r requirements.txt -r prod-requirements.txt \
